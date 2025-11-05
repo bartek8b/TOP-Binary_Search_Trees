@@ -26,8 +26,8 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 function binarySearchTree(array) {
-  // Sort copy of input, do not mutate it
-  const sorted = [...array].sort((a, b) => a - b);
+  // Sort copy of input, do not mutate it, eliminate duplicates (Set)
+  const sorted = [...new Set([...array].sort((a, b) => a - b))];
   const bst = new Tree();
   bst.root = buildTree(sorted);
   return bst;
@@ -48,3 +48,4 @@ function binarySearchTree(array) {
 const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
 console.log(prettyPrint(bst.root));
+console.log(bst);
