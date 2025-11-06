@@ -46,7 +46,33 @@ function binarySearchTree(array) {
   }
 }
 
+function insert(value, node) {
+  if (value === node.data) {
+    console.log(`Value ${value} wasn't inserted as it's a duplicate`);
+    return null;
+  }
+  if (!node.left && !node.right) {
+    value < node.data
+      ? (node.left = new Node(value))
+      : (node.right = new Node(value));
+    return node;
+  }
+
+  if (value < node.data) {
+    if (!node.left) node.left = new Node(value);
+    insert(value, node.left);
+    return node;
+  } else {
+    if (!node.right) node.right = new Node(value);
+    insert(value, node.right);
+    return node;
+  }
+}
+
 const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
+insert(359, bst.root);
+insert(2, bst.root);
+insert(359, bst.root);
 prettyPrint(bst.root);
 console.log(bst);
