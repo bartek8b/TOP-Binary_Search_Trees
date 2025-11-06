@@ -46,33 +46,47 @@ function binarySearchTree(array) {
   }
 }
 
-function insert(value, node) {
-  if (value === node.data) {
-    console.log(`Value ${value} wasn't inserted as it's a duplicate`);
-    return null;
-  }
-  if (!node.left && !node.right) {
-    value < node.data
-      ? (node.left = new Node(value))
-      : (node.right = new Node(value));
-    return node;
+function insert(value, tree) {
+  if (!tree.root) {
+    tree.root = new Node(value);
   }
 
-  if (value < node.data) {
-    if (!node.left) node.left = new Node(value);
-    insert(value, node.left);
-    return node;
-  } else {
-    if (!node.right) node.right = new Node(value);
-    insert(value, node.right);
-    return node;
+  insertIntoNode(value, tree.root);
+
+  function insertIntoNode(value, node) {
+    if (value === node.data) {
+      console.log(`Value ${value} wasn't inserted as it's a duplicate`);
+      return null;
+    }
+    if (!node.left && !node.right) {
+      value < node.data
+        ? (node.left = new Node(value))
+        : (node.right = new Node(value));
+      return node;
+    }
+
+    if (value < node.data) {
+      if (!node.left) {
+        node.left = new Node(value);
+        return node;
+      }
+      insertIntoNode(value, node.left);
+    } else {
+      if (!node.right) {
+        node.right = new Node(value);
+        return node;
+      }
+      insertIntoNode(value, node.right);
+    }
   }
 }
 
+function deleteItem(value) {}
+
 const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-insert(359, bst.root);
-insert(2, bst.root);
-insert(359, bst.root);
+insert(359, bst);
+insert(2, bst);
+insert(359, bst);
+
 prettyPrint(bst.root);
-console.log(bst);
