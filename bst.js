@@ -53,6 +53,8 @@ function insert(value, tree) {
 
   insertIntoNode(value, tree.root);
 
+  return tree;
+
   function insertIntoNode(value, node) {
     if (value === node.data) {
       console.log(`Value ${value} wasn't inserted as it's a duplicate`);
