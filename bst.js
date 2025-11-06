@@ -51,9 +51,7 @@ function insert(value, tree) {
     tree.root = new Node(value);
   }
 
-  insertIntoNode(value, tree.root);
-
-  return tree;
+  return insertIntoNode(value, tree.root);
 
   function insertIntoNode(value, node) {
     if (value === node.data) {
@@ -83,7 +81,27 @@ function insert(value, tree) {
   }
 }
 
-function deleteItem(value) {}
+function remove(value, tree) {
+  if (!tree.root) return null;
+
+  return deleteItem(value, tree.root);
+
+  function deleteItem(value, node) {
+    if (node === null) {
+      return node;
+    }
+    if (value < node.data) {
+      node.left = deleteItem(value, node.left);
+    } else if (value > node.data) {
+      node.right = deleteItem(value, node.right);
+    } else {
+      // Node with 0 or 1 child
+      if (node.left === null) return node.right;
+      if (node.right === null) return node.left;
+      // Node with 2 children
+    }
+  }
+}
 
 const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
