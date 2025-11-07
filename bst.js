@@ -114,6 +114,19 @@ function remove(value, tree) {
   }
 }
 
+function find(value, tree) {
+  if (!tree.root) return null;
+
+  return findNode(value, tree.root);
+
+  function findNode(value, node) {
+    if (!node) return null;
+    if (value === node.data) return node;
+    if (value < node.data) return findNode(value, node.left);
+    if (value > node.data) return findNode(value, node.right);
+  }
+}
+
 const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
 insert(359, bst);
@@ -124,4 +137,5 @@ remove(6345, bst);
 remove(8, bst);
 insert(6, bst);
 
+console.log(find(359, bst));
 prettyPrint(bst.root);
