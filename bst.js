@@ -117,8 +117,9 @@ function remove(value, tree) {
 const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
 insert(359, bst);
-insert(2, bst);
+// Check detection of duplicate
 insert(359, bst);
+insert(2, bst);
 remove(6345, bst);
 remove(8, bst);
 insert(6, bst);
