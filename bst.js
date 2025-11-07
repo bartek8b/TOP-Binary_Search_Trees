@@ -49,6 +49,7 @@ function binarySearchTree(array) {
 function insert(value, tree) {
   if (!tree.root) {
     tree.root = new Node(value);
+    return tree.root;
   }
 
   return insertIntoNode(value, tree.root);
@@ -56,7 +57,7 @@ function insert(value, tree) {
   function insertIntoNode(value, node) {
     if (value === node.data) {
       console.log(`Value ${value} wasn't inserted as it's a duplicate`);
-      return null;
+      return node;
     }
     if (!node.left && !node.right) {
       value < node.data
@@ -70,13 +71,13 @@ function insert(value, tree) {
         node.left = new Node(value);
         return node;
       }
-      insertIntoNode(value, node.left);
+      return insertIntoNode(value, node.left);
     } else {
       if (!node.right) {
         node.right = new Node(value);
         return node;
       }
-      insertIntoNode(value, node.right);
+      return insertIntoNode(value, node.right);
     }
   }
 }
@@ -125,6 +126,28 @@ function find(value, tree) {
     if (value < node.data) return findNode(value, node.left);
     if (value > node.data) return findNode(value, node.right);
   }
+}
+
+function levelOrderForEach(callback, tree) {
+  if (!tree.root) return null;
+
+  const output = [];
+
+  treaverse(tree.root);
+
+  return output;
+
+  function treaverse(node) {
+    if (!node) return;
+
+    output.push(node.data);
+    if (node.left) return treaverse(node.left);
+    if (node.right) return treaverse(node.right);
+  }
+}
+
+function double(input) {
+  return input * 2;
 }
 
 const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
