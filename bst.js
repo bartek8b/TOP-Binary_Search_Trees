@@ -99,7 +99,18 @@ function remove(value, tree) {
       if (node.left === null) return node.right;
       if (node.right === null) return node.left;
       // Node with 2 children
+      const succ = getSuccessor(node);
+      node.data = succ.data;
+      node.right = deleteItem(succ.data, node.right);
     }
+    return node;
+  }
+
+  function getSuccessor(curr) {
+    curr = curr.right;
+    //Take the smallest from values higher than node
+    while (curr !== null && curr.left !== null) curr = curr.left;
+    return curr;
   }
 }
 
@@ -108,5 +119,8 @@ const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 insert(359, bst);
 insert(2, bst);
 insert(359, bst);
+remove(6345, bst);
+remove(8, bst);
+insert(6, bst);
 
 prettyPrint(bst.root);
