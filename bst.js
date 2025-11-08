@@ -10,6 +10,27 @@ class Tree {
   constructor() {
     this.root = null;
   }
+
+  static fromArray(array) {
+    // Eliminate duplicates and sort
+    const noDuplicates = [...new Set(array)];
+    const sorted = noDuplicates.sort((a, b) => a - b);
+    const tree = new Tree();
+    tree.root = buildTree(sorted);
+    return tree;
+
+    function buildTree(array, start = 0, end = array.length - 1) {
+      if (start > end) return null;
+
+      const mid = start + Math.floor((end - start) / 2);
+      const root = new Node(array[mid]);
+
+      root.left = buildTree(array, start, mid - 1);
+      root.right = buildTree(array, mid + 1, end);
+
+      return root;
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -25,34 +46,15 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-function binarySearchTree(array) {
-  // Eliminate duplicates (Set)
-  const noDuplicates = [...new Set(array)];
-  const sorted = noDuplicates.sort((a, b) => a - b);
-  const bst = new Tree();
-  bst.root = buildTree(sorted);
-  return bst;
+// Instance methods
 
-  function buildTree(array, start = 0, end = array.length - 1) {
-    if (start > end) return null;
-
-    const mid = start + Math.floor((end - start) / 2);
-    const root = new Node(array[mid]);
-
-    root.left = buildTree(array, start, mid - 1);
-    root.right = buildTree(array, mid + 1, end);
-
-    return root;
-  }
-}
-
-function insert(value, tree) {
-  if (!tree.root) {
-    tree.root = new Node(value);
-    return tree.root;
+Tree.prototype.insert = function (value) {
+  if (!this.root) {
+    this.root = new Node(value);
+    return this.root;
   }
 
-  return insertIntoNode(value, tree.root);
+  return insertIntoNode(value, this.root);
 
   function insertIntoNode(value, node) {
     if (value === node.data) {
@@ -80,12 +82,12 @@ function insert(value, tree) {
       return insertIntoNode(value, node.right);
     }
   }
-}
+};
 
-function remove(value, tree) {
-  if (!tree.root) return null;
+Tree.prototype.remove = function (value) {
+  if (!this.root) return null;
 
-  return deleteItem(value, tree.root);
+  return deleteItem(value, this.root);
 
   function deleteItem(value, node) {
     if (node === null) {
@@ -113,12 +115,12 @@ function remove(value, tree) {
     while (curr !== null && curr.left !== null) curr = curr.left;
     return curr;
   }
-}
+};
 
-function find(value, tree) {
-  if (!tree.root) return null;
+Tree.prototype.find = function (value) {
+  if (!this.root) return null;
 
-  return findNode(value, tree.root);
+  return findNode(value, this.root);
 
   function findNode(value, node) {
     if (!node) return null;
@@ -126,39 +128,40 @@ function find(value, tree) {
     if (value < node.data) return findNode(value, node.left);
     if (value > node.data) return findNode(value, node.right);
   }
-}
+};
 
-function levelOrderForEach(callback, tree) {
-  if (!tree.root) return null;
-
-  const output = [];
-
-  treaverse(tree.root);
-
-  return output;
-
-  function treaverse(node) {
-    if (!node) return;
-
-    output.push(node.data);
-    if (node.left) return treaverse(node.left);
-    if (node.right) return treaverse(node.right);
+Tree.prototype.levelOrderForEach = function (callback) {
+  if (typeof callback !== 'function') {
+    throw new Error('A callback function is required');
   }
-}
+  if (!this.root) return;
+
+  const q = [this.root];
+  let head = 0;
+
+  while (head < q.length) {
+    const node = q[head++];
+    callback(node);
+    if (node.left) q.push(node.left);
+    if (node.right) q.push(node.right);
+  }
+};
 
 function double(input) {
-  return input * 2;
+  console.log(input.data * 2);
 }
 
-const bst = binarySearchTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const bst = Tree.fromArray([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-insert(359, bst);
+bst.insert(359);
 // Check detection of duplicate
-insert(359, bst);
-insert(2, bst);
-remove(6345, bst);
-remove(8, bst);
-insert(6, bst);
+bst.insert(359);
+bst.insert(2);
+bst.remove(6345);
+bst.remove(8);
+bst.insert(6);
+bst.insert(8);
+bst.levelOrderForEach(double);
 
-console.log(find(359, bst));
+console.log(bst.find(359));
 prettyPrint(bst.root);
