@@ -147,6 +147,54 @@ Tree.prototype.levelOrderForEach = function (callback) {
   }
 };
 
+Tree.prototype.preOrderForEach = function (callback) {
+  if (typeof callback !== 'function') {
+    throw new Error('A callback function is required');
+  }
+  if (!this.root) return;
+
+  recurse(this.root);
+
+  function recurse(node) {
+    if (node === null) return;
+    callback(node);
+    recurse(node.left);
+    recurse(node.right);
+  }
+};
+
+Tree.prototype.inOrderForEach = function (callback) {
+  if (typeof callback !== 'function') {
+    throw new Error('A callback function is required');
+  }
+  if (!this.root) return;
+
+  recurse(this.root);
+
+  function recurse(node) {
+    if (node === null) return;
+    recurse(node.left);
+    callback(node);
+    recurse(node.right);
+  }
+};
+
+Tree.prototype.postOrderForEach = function (callback) {
+  if (typeof callback !== 'function') {
+    throw new Error('A callback function is required');
+  }
+  if (!this.root) return;
+
+  recurse(this.root);
+
+  function recurse(node) {
+    if (node === null) return;
+    recurse(node.left);
+    recurse(node.right);
+    callback(node);
+  }
+};
+
 function double(input) {
   console.log(input.data * 2);
 }
@@ -161,7 +209,6 @@ bst.remove(6345);
 bst.remove(8);
 bst.insert(6);
 bst.insert(8);
-bst.levelOrderForEach(double);
 
 console.log(bst.find(359));
 prettyPrint(bst.root);
