@@ -211,7 +211,27 @@ Tree.prototype.height = function (value) {
   return calcHeight(node);
 };
 
-Tree.prototype.depth = function (value) {};
+Tree.prototype.depth = function (value) {
+  if (!this.root) return null;
+
+  const node = this.root;
+  if (!node) return null;
+
+  function calcDepth(curr) {
+    if (curr === null) return -1;
+    if (curr.data === value) return 0;
+
+    const left = calcDepth(curr.left);
+    if (left >= 0) return left + 1;
+
+    const right = calcDepth(curr.right);
+    if (right >= 0) return right + 1;
+
+    return -1;
+  }
+
+  return calcDepth(node);
+};
 
 Tree.prototype.isBalanced = function () {};
 
@@ -233,4 +253,6 @@ bst.insert(6);
 bst.insert(8);
 
 console.log(bst.find(359));
+console.log(bst.height(67));
+console.log(bst.depth(324));
 prettyPrint(bst.root);
