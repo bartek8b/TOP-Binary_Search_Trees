@@ -195,6 +195,28 @@ Tree.prototype.postOrderForEach = function (callback) {
   }
 };
 
+Tree.prototype.height = function (value) {
+  if (!this.root) return null;
+
+  const node = this.find(value);
+  if (!node) return null;
+
+  function calcHeight(curr) {
+    if (!curr) return -1;
+    const leftHeight = calcHeight(curr.left);
+    const rightHeight = calcHeight(curr.right);
+    return 1 + Math.max(leftHeight, rightHeight);
+  }
+
+  return calcHeight(node);
+};
+
+Tree.prototype.depth = function (value) {};
+
+Tree.prototype.isBalanced = function () {};
+
+Tree.prototype.rebalance = function () {};
+
 function double(input) {
   console.log(input.data * 2);
 }
