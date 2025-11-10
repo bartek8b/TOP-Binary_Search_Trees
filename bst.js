@@ -235,7 +235,25 @@ Tree.prototype.depth = function (value) {
   return calcDepth(node);
 };
 
-Tree.prototype.isBalanced = function () {};
+Tree.prototype.isBalanced = function () {
+  if (!this.root) return null;
+
+  function checkBalance(node) {
+    if (!node) return 0;
+
+    const leftHeight = checkBalance(node.left);
+    if (leftHeight === -1) return -1;
+
+    const rightHeight = checkBalance(node.right);
+    if (rightHeight === -1) return -1;
+
+    if (Math.abs(leftHeight - rightHeight) > 1) return -1;
+
+    return 1 + Math.max(leftHeight, rightHeight);
+  }
+
+  return checkBalance(this.root) !== -1;
+};
 
 Tree.prototype.rebalance = function () {};
 
