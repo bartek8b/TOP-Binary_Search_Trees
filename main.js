@@ -14,4 +14,5 @@ bst.insert(8);
 console.log(bst.find(359));
 console.log(bst.height(67));
 console.log(bst.depth(324));
+console.log(bst.isBalanced());
 prettyPrint(bst.root);
