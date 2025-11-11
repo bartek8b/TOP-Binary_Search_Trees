@@ -255,7 +255,27 @@ Tree.prototype.isBalanced = function () {
   return checkBalance(this.root) !== -1;
 };
 
-Tree.prototype.rebalance = function () {};
+Tree.prototype.rebalance = function () {
+  if (this.isBalanced()) {
+    console.log('The tree is balanced');
+    return null;
+  }
+
+  const arr = [];
+  inOrder(this.root);
+
+  function inOrder(node) {
+    if (!node) return;
+
+    inOrder(node.left);
+    arr.push(node.data);
+    inOrder(node.right);
+  }
+
+  const balanced = Tree.fromArray(arr);
+  this.root = balanced.root;
+  console.log('The tree was rebalanced');
+};
 
 // Helper (forEach testing)
 

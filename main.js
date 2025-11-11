@@ -15,4 +15,5 @@ console.log(bst.find(359));
 console.log(bst.height(67));
 console.log(bst.depth(324));
 console.log(bst.isBalanced());
+bst.rebalance();
 prettyPrint(bst.root);
