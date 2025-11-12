@@ -1,23 +1,28 @@
 {
-  "name": "top-hashmap",
+  "name": "top-binary-search-trees",
   "version": "1.0.0",
-  "description": "[Project requirements](https://www.theodinproject.com/lessons/javascript-hashmap)",
-  "main": "hashMap.js",
+  "description": "[Project requirements](https://www.theodinproject.com/lessons/javascript-binary-search-trees)",
+  "main": "main.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bartek8b/TOP-HashMap.git"
+    "url": "git+https://github.com/bartek8b/TOP-Binary_Search_Trees.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "binary-search-tree",
+    "javascript",
+    "bst",
+    "the-odin-project"
+  ],
+  "author": "Bartłomiej",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bartek8b/TOP-HashMap/issues"
+    "url": "https://github.com/bartek8b/TOP-Binary_Search_Trees/issues"
   },
-  "homepage": "https://github.com/bartek8b/TOP-HashMap#readme",
+  "homepage": "https://github.com/bartek8b/TOP-Binary_Search_Trees#readme",
   "devDependencies": {
     "nodemon": "^3.1.10"
   }
